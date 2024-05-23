@@ -1,0 +1,61 @@
+﻿@page
+@model Licenta.Pages.Dishes.DetailsModel
+
+@{
+    ViewData["Title"] = "Detalii";
+}
+
+<h1>Detalii</h1>
+
+<div>
+    <h4>Preparat</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Dish.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Dish.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Dish.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Dish.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Dish.Category.CategoryName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Dish.Category.CategoryName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Dish.Amount)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Dish.Amount)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Dish.Unit)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Dish.Unit)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Dish.ServingRecommendation)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Dish.ServingRecommendation)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Dish.CoverImageURL)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Dish.CoverImageURL)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Dish?.ID">Editeaza</a> |
+    <a asp-page="./Index">Inapoi la lista</a>
+</div>

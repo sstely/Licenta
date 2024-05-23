@@ -1,0 +1,48 @@
+﻿@page
+@model Licenta.Pages.Categories.IndexModel
+
+@{
+    ViewData["Title"] = "Categorii";
+}
+
+<h1>Categorii</h1>
+
+<p>
+    <a asp-page="Create">Adauga categorie</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Category[0].CategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category[0].CategoryPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category[0].CategoryImageURL)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Category) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryImageURL)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Editeaza</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Detalii</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Sterge</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

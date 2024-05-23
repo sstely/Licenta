@@ -1,0 +1,64 @@
+﻿@page
+@model Licenta.Pages.Dishes.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Dish</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Dish.Name" class="control-label"></label>
+                <input asp-for="Dish.Name" class="form-control" />
+                <span asp-validation-for="Dish.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Dish.Description" class="control-label"></label>
+                <input asp-for="Dish.Description" class="form-control" />
+                <span asp-validation-for="Dish.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group"> 
+                <label asp-for="Dish.CategoryID" class="control-label">Categorie</label> 
+                <select asp-for="Dish.CategoryID" class="form-control" asp-items="ViewBag.CategoryID"> </select> 
+                <span asp-validation-for="Dish.CategoryID" class="text-danger"></span> 
+            </div>
+            <div class="form-group">
+                <label asp-for="Dish.Amount" class="control-label"></label>
+                <input asp-for="Dish.Amount" class="form-control" />
+                <span asp-validation-for="Dish.Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Dish.Unit" class="control-label"></label>
+                <input asp-for="Dish.Unit" class="form-control" />
+                <span asp-validation-for="Dish.Unit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Dish.ServingRecommendation" class="control-label"></label>
+                <input asp-for="Dish.ServingRecommendation" class="form-control" />
+                <span asp-validation-for="Dish.ServingRecommendation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Dish.CoverImageURL" class="control-label"></label>
+                <input asp-for="Dish.CoverImageURL" class="form-control" />
+                <span asp-validation-for="Dish.CoverImageURL" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Inapoi la lista</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
