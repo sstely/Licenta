@@ -4,6 +4,7 @@ using Licenta.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Licenta.Migrations
 {
     [DbContext(typeof(LicentaContext))]
-    partial class LicentaContextModelSnapshot : ModelSnapshot
+    [Migration("20240524152634_Orders")]
+    partial class Orders
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -270,33 +273,6 @@ namespace Licenta.Migrations
                     b.ToTable("OrderDish");
                 });
 
-            modelBuilder.Entity("Licenta.Models.Reservation", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<int?>("MemberID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NumberPeople")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("ReservationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<TimeSpan>("ReservationTime")
-                        .HasColumnType("time");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("MemberID");
-
-                    b.ToTable("Reservation");
-                });
-
             modelBuilder.Entity("Licenta.Models.Dish", b =>
                 {
                     b.HasOne("Licenta.Models.Category", "Category")
@@ -372,15 +348,6 @@ namespace Licenta.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("Licenta.Models.Reservation", b =>
-                {
-                    b.HasOne("Licenta.Models.Member", "Member")
-                        .WithMany("Reservations")
-                        .HasForeignKey("MemberID");
-
-                    b.Navigation("Member");
-                });
-
             modelBuilder.Entity("Licenta.Models.Allergen", b =>
                 {
                     b.Navigation("DishAllergens");
@@ -408,8 +375,6 @@ namespace Licenta.Migrations
             modelBuilder.Entity("Licenta.Models.Member", b =>
                 {
                     b.Navigation("Orders");
-
-                    b.Navigation("Reservations");
                 });
 
             modelBuilder.Entity("Licenta.Models.Order", b =>

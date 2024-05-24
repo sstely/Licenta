@@ -21,5 +21,11 @@ namespace Licenta.Data
         public DbSet<Licenta.Models.Ingredient> Ingredient { get; set; } = default!;
 
         public DbSet<Licenta.Models.Allergen> Allergen { get; set; } = default!;
+
+        public DbSet<Licenta.Models.Order> Order { get; set; } = default!;
+
+        public DbSet<Licenta.Models.Member> Member { get; set; } = default!;
+
+        public DbSet<Licenta.Models.Reservation> Reservation { get; set; } = default!;
     }
 }
