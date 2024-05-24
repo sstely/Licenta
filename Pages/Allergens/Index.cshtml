@@ -1,0 +1,40 @@
+﻿@page
+@model Licenta.Pages.Allergens.IndexModel
+
+@{
+    ViewData["Title"] = "Alergeni";
+}
+
+<h1>Alergeni</h1>
+
+<p>
+    <a asp-page="Create">Adauga alergeni</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Imagine</th>
+            <th>
+                @Html.DisplayNameFor(model => model.Allergen[0].AllergenName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Allergen) {
+        <tr>
+            <td>
+                <img src="@item.AllergenImageURL" class="img-thumbnail"/>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AllergenName)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Editeaza</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Detalii</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Sterge</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -17,5 +17,9 @@ namespace Licenta.Data
         public DbSet<Licenta.Models.Dish> Dish { get; set; } = default!;
 
         public DbSet<Licenta.Models.Category> Category { get; set; } = default!;
+
+        public DbSet<Licenta.Models.Ingredient> Ingredient { get; set; } = default!;
+
+        public DbSet<Licenta.Models.Allergen> Allergen { get; set; } = default!;
     }
 }

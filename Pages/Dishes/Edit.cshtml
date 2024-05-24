@@ -2,16 +2,16 @@
 @model Licenta.Pages.Dishes.EditModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editare";
 }
 
-<h1>Edit</h1>
+<h1>Editeaza</h1>
 
-<h4>Dish</h4>
+<h4>Preparat</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Dish.ID" />
             <div class="form-group">
@@ -29,6 +29,58 @@
                 <select asp-for="Dish.CategoryID" class="form-control" asp-items="ViewBag.CategoryID"> </select>
                 <span asp-validation-for="Dish.CategoryID" class="text-danger"></span>
             </div>
+
+            <div class="form-group">
+                <div class="table">
+                    <table>
+                        <tr>
+                            @{
+                                int cnt = 0;
+                                foreach (var ingr in Model.AssignedIngredientDataList)
+                                {
+                                    if (cnt++ % 3 == 0)
+                                    {
+                                        @:</tr><tr>
+                                    }
+                                    @: <td>
+                                        <input type="checkbox"
+                                               name="selectedIngredients"
+                                               value="@ingr.IngredientID"
+                                               @(Html.Raw(ingr.Assigned ? "checked=\"checked\"" : "")) />
+                                        @ingr.IngredientID @:  @ingr.Name
+                                    @:</td>
+                                }
+                            @:</tr>
+                            }
+                    </table>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="table">
+                    <table>
+                        <tr>
+                            @{
+                                int cnt2 = 0;
+                                foreach (var alg in Model.AssignedAllergenDataList)
+                                {
+                                    if (cnt2++ % 3 == 0)
+                                    {
+                                        @:</tr><tr>
+                                    }
+                                    @: <td>
+                                        <input type="checkbox"
+                                               name="selectedAllergens"
+                                               value="@alg.AllergenID"
+                                               @(Html.Raw(alg.Assigned ? "checked=\"checked\"" : "")) />
+                                        @alg.AllergenID @:  @alg.Name
+                                    @:</td>
+                                }
+                            @:</tr>
+                            }
+                    </table>
+                </div>
+            </div>
+
             <div class="form-group">
                 <label asp-for="Dish.Amount" class="control-label"></label>
                 <input asp-for="Dish.Amount" class="form-control" />
@@ -44,11 +96,13 @@
                 <input asp-for="Dish.ServingRecommendation" class="form-control" />
                 <span asp-validation-for="Dish.ServingRecommendation" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="Dish.CoverImageURL" class="control-label"></label>
-                <input asp-for="Dish.CoverImageURL" class="form-control" />
-                <span asp-validation-for="Dish.CoverImageURL" class="text-danger"></span>
+                <label asp-for="Dish.CoverImageFile" class="control-label">Alege Imagine</label>
+                <input type="file" asp-for="Dish.CoverImageFile" class="form-control" />
+                <span asp-validation-for="Dish.CoverImageFile" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

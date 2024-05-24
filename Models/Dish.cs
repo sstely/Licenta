@@ -31,6 +31,9 @@ namespace Licenta.Models
 
         public Category? Category { get; set; }
 
+        public ICollection<DishIngredient>? DishIngredients { get; set; }
+        public ICollection<DishAllergen>? DishAllergens { get; set; }
+
 
         [NotMapped]
 

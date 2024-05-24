@@ -4,6 +4,7 @@ using Licenta.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Licenta.Migrations
 {
     [DbContext(typeof(LicentaContext))]
-    partial class LicentaContextModelSnapshot : ModelSnapshot
+    [Migration("20240524110932_DishIngredientCreate")]
+    partial class DishIngredientCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,26 +24,6 @@ namespace Licenta.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("Licenta.Models.Allergen", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<string>("AllergenImageURL")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AllergenName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Allergen");
-                });
 
             modelBuilder.Entity("Licenta.Models.Category", b =>
                 {
@@ -103,29 +86,6 @@ namespace Licenta.Migrations
                     b.ToTable("Dish");
                 });
 
-            modelBuilder.Entity("Licenta.Models.DishAllergen", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AllergenID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DishID")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AllergenID");
-
-                    b.HasIndex("DishID");
-
-                    b.ToTable("DishAllergen");
-                });
-
             modelBuilder.Entity("Licenta.Models.DishIngredient", b =>
                 {
                     b.Property<int>("ID")
@@ -133,6 +93,9 @@ namespace Licenta.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(6,2)");
 
                     b.Property<int>("DishID")
                         .HasColumnType("int");
@@ -209,25 +172,6 @@ namespace Licenta.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("Licenta.Models.DishAllergen", b =>
-                {
-                    b.HasOne("Licenta.Models.Allergen", "Allergen")
-                        .WithMany("DishAllergens")
-                        .HasForeignKey("AllergenID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Licenta.Models.Dish", "Dish")
-                        .WithMany("DishAllergens")
-                        .HasForeignKey("DishID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Allergen");
-
-                    b.Navigation("Dish");
-                });
-
             modelBuilder.Entity("Licenta.Models.DishIngredient", b =>
                 {
                     b.HasOne("Licenta.Models.Dish", "Dish")
@@ -247,11 +191,6 @@ namespace Licenta.Migrations
                     b.Navigation("Ingredient");
                 });
 
-            modelBuilder.Entity("Licenta.Models.Allergen", b =>
-                {
-                    b.Navigation("DishAllergens");
-                });
-
             modelBuilder.Entity("Licenta.Models.Category", b =>
                 {
                     b.Navigation("Dishes");
@@ -259,8 +198,6 @@ namespace Licenta.Migrations
 
             modelBuilder.Entity("Licenta.Models.Dish", b =>
                 {
-                    b.Navigation("DishAllergens");
-
                     b.Navigation("DishIngredients");
                 });
 

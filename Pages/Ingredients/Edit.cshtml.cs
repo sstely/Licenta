@@ -9,39 +9,33 @@ using Microsoft.EntityFrameworkCore;
 using Licenta.Data;
 using Licenta.Models;
 
-namespace Licenta.Pages.Categories
+namespace Licenta.Pages.Ingredients
 {
     public class EditModel : PageModel
     {
         private readonly Licenta.Data.LicentaContext _context;
-        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public EditModel(Licenta.Data.LicentaContext context, IWebHostEnvironment webHostEnvironment)
+        public EditModel(Licenta.Data.LicentaContext context)
         {
             _context = context;
-            _webHostEnvironment = webHostEnvironment;
         }
 
         [BindProperty]
-        public Category Category { get; set; } = default!;
-        public string CategoryImageURL { get; set; }
+        public Ingredient Ingredient { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Category == null)
+            if (id == null || _context.Ingredient == null)
             {
                 return NotFound();
             }
 
-            var category =  await _context.Category.FirstOrDefaultAsync(m => m.ID == id);
-            if (category == null)
+            var ingredient =  await _context.Ingredient.FirstOrDefaultAsync(m => m.ID == id);
+            if (ingredient == null)
             {
                 return NotFound();
             }
-            Category = category;
-
-            CategoryImageURL = Category.CategoryImageURL;
-
+            Ingredient = ingredient;
             return Page();
         }
 
@@ -54,20 +48,7 @@ namespace Licenta.Pages.Categories
                 return Page();
             }
 
-            _context.Attach(Category).State = EntityState.Modified;
-
-            if (Category.CategoryImageFile != null)
-            {
-                string folder = "covers/categories/";
-                folder += Guid.NewGuid().ToString() + "_" + Category.CategoryImageFile.FileName;
-
-                Category.CategoryImageURL = "/" + folder;
-
-                string serverFolder = Path.Combine(_webHostEnvironment.WebRootPath, folder);
-
-                await Category.CategoryImageFile.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
-
-            }
+            _context.Attach(Ingredient).State = EntityState.Modified;
 
             try
             {
@@ -75,7 +56,7 @@ namespace Licenta.Pages.Categories
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CategoryExists(Category.ID))
+                if (!IngredientExists(Ingredient.ID))
                 {
                     return NotFound();
                 }
@@ -88,9 +69,9 @@ namespace Licenta.Pages.Categories
             return RedirectToPage("./Index");
         }
 
-        private bool CategoryExists(int id)
+        private bool IngredientExists(int id)
         {
-          return (_context.Category?.Any(e => e.ID == id)).GetValueOrDefault();
+          return (_context.Ingredient?.Any(e => e.ID == id)).GetValueOrDefault();
         }
     }
 }

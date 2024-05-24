@@ -2,16 +2,16 @@
 @model Licenta.Pages.Categories.EditModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editare";
 }
 
-<h1>Edit</h1>
+<h1>Editeaza</h1>
 
-<h4>Category</h4>
+<h4>Categorie</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Category.ID" />
             <div class="form-group">
@@ -24,11 +24,13 @@
                 <input asp-for="Category.CategoryPrice" class="form-control" />
                 <span asp-validation-for="Category.CategoryPrice" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="Category.CategoryImageURL" class="control-label"></label>
-                <input asp-for="Category.CategoryImageURL" class="form-control" />
-                <span asp-validation-for="Category.CategoryImageURL" class="text-danger"></span>
+                <label asp-for="Category.CategoryImageFile" class="control-label">Alege Imagine</label>
+                <input type="file" asp-for="Category.CategoryImageFile" class="form-control" />
+                <span asp-validation-for="Category.CategoryImageFile" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
@@ -37,7 +39,7 @@
 </div>
 
 <div>
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="./Index">Inapoi la lista</a>
 </div>
 
 @section Scripts {

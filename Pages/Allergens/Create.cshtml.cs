@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Licenta.Data;
 using Licenta.Models;
 
-namespace Licenta.Pages.Categories
+namespace Licenta.Pages.Allergens
 {
     public class CreateModel : PageModel
     {
@@ -27,31 +27,31 @@ namespace Licenta.Pages.Categories
         }
 
         [BindProperty]
-        public Category Category { get; set; } = default!;
+        public Allergen Allergen { get; set; } = default!;
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.Category == null || Category == null)
+          if (!ModelState.IsValid || _context.Allergen == null || Allergen == null)
             {
                 return Page();
             }
 
-            if (Category.CategoryImageFile != null)
+          if (Allergen.AllergenImageFile != null)
             {
-                string folder = "covers/categories/";
-                folder += Guid.NewGuid().ToString() + "_" + Category.CategoryImageFile.FileName;
+                string folder = "covers/allergens/";
+                folder += Guid.NewGuid().ToString() + "_" + Allergen.AllergenImageFile.FileName;
 
-                Category.CategoryImageURL = "/" + folder;
+                Allergen.AllergenImageURL = "/" + folder;
 
                 string serverFolder = Path.Combine(_webHostEnvironment.WebRootPath, folder);
 
-                await Category.CategoryImageFile.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
+                await Allergen.AllergenImageFile.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
 
             }
 
-            _context.Category.Add(Category);
+            _context.Allergen.Add(Allergen);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

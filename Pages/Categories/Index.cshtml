@@ -13,14 +13,12 @@
 <table class="table">
     <thead>
         <tr>
+            <th>Imagine</th>
             <th>
                 @Html.DisplayNameFor(model => model.Category[0].CategoryName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Category[0].CategoryPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category[0].CategoryImageURL)
             </th>
             <th></th>
         </tr>
@@ -29,13 +27,13 @@
 @foreach (var item in Model.Category) {
         <tr>
             <td>
+                <img src="@item.CategoryImageURL" class="img-thumbnail"/>
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.CategoryName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CategoryPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CategoryImageURL)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Editeaza</a> |
